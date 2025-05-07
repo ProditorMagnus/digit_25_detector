@@ -24,7 +24,6 @@ public class PersonRequester {
         return RetrofitRequestExecutor.executeRaw(api.get(properties.getToken(), personCode));
     }
 
-    // TODO use
     public List<Person> get(List<String> personCodes) {
         log.info("Requesting persons with personCodes {}", personCodes);
 

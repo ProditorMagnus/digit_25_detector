@@ -5,7 +5,11 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Value
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Transaction {
 
     private String id;

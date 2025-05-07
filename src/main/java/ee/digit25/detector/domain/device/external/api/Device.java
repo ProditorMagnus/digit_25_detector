@@ -1,8 +1,14 @@
 package ee.digit25.detector.domain.device.external.api;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Value
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class Device {
 
     private String mac;

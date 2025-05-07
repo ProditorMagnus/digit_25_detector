@@ -17,7 +17,6 @@ public class TransactionValidator {
     private final DeviceValidator deviceValidator;
     private final AccountValidator accountValidator;
 
-    // TODO fail fast, check cheap and likely to fail first, fail as soon as result is known
     public boolean isLegitimate(Transaction transaction) {
         boolean isLegitimate = true;
 

@@ -4,7 +4,11 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Value
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Account {
 
     private String number;
