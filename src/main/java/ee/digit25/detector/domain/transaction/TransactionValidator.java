@@ -19,10 +19,10 @@ public class TransactionValidator {
 
     public boolean isLegitimate(Transaction transaction) {
 
-        if (!personValidator.isValid(transaction.getRecipient())){
+        if (!personValidator.isValid(transaction.getRecipient(), personValidator.requester.get(transaction.getRecipient()))){
             return false;
         }
-        if(!personValidator.isValid(transaction.getSender())){
+        if(!personValidator.isValid(transaction.getSender(), personValidator.requester.get(transaction.getSender()))){
             return false;
         }
         if(!deviceValidator.isValid(transaction.getDeviceMac())){
