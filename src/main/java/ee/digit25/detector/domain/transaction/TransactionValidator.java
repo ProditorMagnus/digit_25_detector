@@ -18,14 +18,23 @@ public class TransactionValidator {
     private final AccountValidator accountValidator;
 
     public boolean isLegitimate(Transaction transaction) {
-        boolean isLegitimate = true;
 
-        isLegitimate &= personValidator.isValid(transaction.getRecipient());
-        isLegitimate &= personValidator.isValid(transaction.getSender());
-        isLegitimate &= deviceValidator.isValid(transaction.getDeviceMac());
-        isLegitimate &= accountValidator.isValidSenderAccount(transaction.getSenderAccount(), transaction.getAmount(), transaction.getSender());
-        isLegitimate &= accountValidator.isValidRecipientAccount(transaction.getRecipientAccount(), transaction.getRecipient());
+        if (!personValidator.isValid(transaction.getRecipient())){
+            return false;
+        }
+        if(!personValidator.isValid(transaction.getSender())){
+            return false;
+        }
+        if(!deviceValidator.isValid(transaction.getDeviceMac())){
+            return false;
+        }
+        if(!accountValidator.isValidSenderAccount(transaction.getSenderAccount(), transaction.getAmount(), transaction.getSender())){
+            return false;
+        }
+        if(!accountValidator.isValidRecipientAccount(transaction.getRecipientAccount(), transaction.getRecipient())){
+            return false;
+        }
 
-        return isLegitimate;
+        return true;
     }
 }
