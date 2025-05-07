@@ -21,7 +21,7 @@ public class Processor {
     private final TransactionValidator validator;
     private final TransactionVerifier verifier;
 
-    @Scheduled(fixedDelay = 1000) //Runs every 1000 ms after the last run
+    @Scheduled(fixedDelay = 1) //Runs every 1000 ms after the last run
     public void process() {
         log.info("Starting to process a batch of transactions of size {}", TRANSACTION_BATCH_SIZE);
 
