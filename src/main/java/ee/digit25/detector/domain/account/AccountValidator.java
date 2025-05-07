@@ -19,7 +19,14 @@ public class AccountValidator {
         boolean isValid = true;
 
         isValid &= !isClosed(accountNumber);
+
+        if (!isValid)
+            return false;
+
         isValid &= isOwner(accountNumber, senderPersonCode);
+        if (!isValid)
+            return false;
+
         isValid &= hasBalance(accountNumber, amount);
 
         return isValid;
@@ -30,6 +37,9 @@ public class AccountValidator {
         boolean isValid = true;
 
         isValid &= !isClosed(accountNumber);
+        if (!isValid)
+            return false;
+
         isValid &= isOwner(accountNumber, recipientPersonCode);
 
         return isValid;
