@@ -2,11 +2,7 @@ package ee.digit25.detector.domain.person.external.api;
 
 import lombok.*;
 
-@Getter
-@Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@Value
 public class Person {
 
     private String firstName;
