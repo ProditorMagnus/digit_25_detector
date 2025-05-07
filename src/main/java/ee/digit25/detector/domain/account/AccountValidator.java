@@ -1,6 +1,7 @@
 package ee.digit25.detector.domain.account;
 
 import ee.digit25.detector.domain.account.external.AccountRequester;
+import ee.digit25.detector.domain.account.external.api.Account;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,16 +19,17 @@ public class AccountValidator {
         log.info("Checking if account {} is valid sender account", accountNumber);
         boolean isValid = true;
 
-        isValid &= !isClosed(accountNumber);
+        Account account = requester.get(accountNumber);
+        isValid &= !isClosed(account);
 
         if (!isValid)
             return false;
 
-        isValid &= isOwner(accountNumber, senderPersonCode);
+        isValid &= isOwner(account, senderPersonCode);
         if (!isValid)
             return false;
 
-        isValid &= hasBalance(accountNumber, amount);
+        isValid &= hasBalance(account, amount);
 
         return isValid;
     }
@@ -36,30 +38,31 @@ public class AccountValidator {
         log.info("Checking if account {} is valid recipient account", accountNumber);
         boolean isValid = true;
 
-        isValid &= !isClosed(accountNumber);
+        Account account = requester.get(accountNumber);
+        isValid &= !isClosed(account);
         if (!isValid)
             return false;
 
-        isValid &= isOwner(accountNumber, recipientPersonCode);
+        isValid &= isOwner(account, recipientPersonCode);
 
         return isValid;
     }
 
-    private boolean isOwner(String accountNumber, String senderPersonCode) {
-        log.info("Checking if {} is owner of account {}", senderPersonCode, accountNumber);
+    private boolean isOwner(Account account, String senderPersonCode) {
+        //log.info("Checking if {} is owner of account {}", senderPersonCode, accountNumber);
 
-        return senderPersonCode.equals(requester.get(accountNumber).getOwner());
+        return senderPersonCode.equals(account.getOwner());
     }
 
-    private boolean hasBalance(String accountNumber, BigDecimal amount) {
-        log.info("Checking if account {} has balance for amount {}", accountNumber, amount);
+    private boolean hasBalance(Account account, BigDecimal amount) {
+        //log.info("Checking if account {} has balance for amount {}", accountNumber, amount);
 
-        return requester.get(accountNumber).getBalance().compareTo(amount) >= 0;
+        return account.getBalance().compareTo(amount) >= 0;
     }
 
-    private boolean isClosed(String accountNumber) {
-        log.info("Checking if account {} is closed", accountNumber);
+    private boolean isClosed(Account account) {
+        //log.info("Checking if account {} is closed", accountNumber);
 
-        return requester.get(accountNumber).getClosed();
+        return account.getClosed();
     }
 }
